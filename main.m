@@ -39,10 +39,8 @@ x_opt.CoD = cell(1, T);
 x_opt.CoD_GAP = cell(1, T);
 x_opt.CoD_G_GAP = cell(1, T);
 x_opt.CoD_R_GAP = cell(1, T);
-x_opt.CoD_Dome_GAP = cell(1, T);
 x_opt.CoD_Sta = cell(1, T);
 x_opt.CoD_G_Sta = cell(1, T);
-x_opt.CoD_Dome_Sta = cell(1, T);
 x_opt.CoD_Sta_GAP = cell(1, T);
 x_opt.CoD_G_Sta_GAP = cell(1, T);
 % 每次迭代得到的可行解
@@ -50,10 +48,8 @@ x_it.CoD = cell(1, T);
 x_it.CoD_GAP = cell(1, T);
 x_it.CoD_G_GAP = cell(1, T);
 x_it.CoD_R_GAP = cell(1, T);
-x_it.CoD_Dome_GAP = cell(1, T);
 x_it.CoD_Sta = cell(1, T);
 x_it.CoD_G_Sta = cell(1, T);
-x_it.CoD_Dome_Sta = cell(1, T);
 x_it.CoD_Sta_GAP = cell(1, T);
 x_it.CoD_G_Sta_GAP = cell(1, T);
 % 原问题目标函数值
@@ -61,10 +57,8 @@ primal_obj.CoD = cell(1, T);
 primal_obj.CoD_GAP = cell(1, T);
 primal_obj.CoD_G_GAP = cell(1, T);
 primal_obj.CoD_R_GAP = cell(1, T);
-primal_obj.CoD_Dome_GAP = cell(1, T);
 primal_obj.CoD_Sta = cell(1, T);
 primal_obj.CoD_G_Sta = cell(1, T);
-primal_obj.CoD_Dome_Sta = cell(1, T);
 primal_obj.CoD_Sta_GAP = cell(1, T);
 primal_obj.CoD_G_Sta_GAP = cell(1, T);
 % 对偶问题最优解
@@ -72,10 +66,8 @@ theta_opt.CoD = cell(1, T);
 theta_opt.CoD_GAP = cell(1, T);
 theta_opt.CoD_G_GAP = cell(1, T);
 theta_opt.CoD_R_GAP = cell(1, T);
-theta_opt.CoD_Dome_GAP = cell(1, T);
 theta_opt.CoD_Sta = cell(1, T);
 theta_opt.CoD_G_Sta = cell(1, T);
-theta_opt.CoD_Dome_Sta = cell(1, T);
 theta_opt.CoD_Sta_GAP = cell(1, T);
 theta_opt.CoD_G_Sta_GAP = cell(1, T);
 % 终止准则(gap的变化规律)
@@ -83,10 +75,8 @@ stop_crit_it.CoD = cell(1, T);
 stop_crit_it.CoD_GAP = cell(1, T);
 stop_crit_it.CoD_G_GAP = cell(1, T);
 stop_crit_it.CoD_R_GAP = cell(1, T);
-stop_crit_it.CoD_Dome_GAP = cell(1, T);
 stop_crit_it.CoD_Sta = cell(1, T);
 stop_crit_it.CoD_G_Sta = cell(1, T);
-stop_crit_it.CoD_Dome_Sta = cell(1, T);
 stop_crit_it.CoD_Sta_GAP = cell(1, T);
 stop_crit_it.CoD_G_Sta_GAP = cell(1, T);
 % 迭代次数
@@ -94,10 +84,8 @@ Iter.CoD = cell(1, T);
 Iter.CoD_GAP = cell(1, T);
 Iter.CoD_G_GAP = cell(1, T);
 Iter.CoD_R_GAP = cell(1, T);
-Iter.CoD_Dome_GAP = cell(1, T);
 Iter.CoD_Sta = cell(1, T);
 Iter.CoD_G_Sta = cell(1, T);
-Iter.CoD_Dome_Sta = cell(1, T);
 Iter.CoD_Sta_GAP = cell(1, T);
 Iter.CoD_G_Sta_GAP = cell(1, T);
 % 每次迭代的时间
@@ -105,30 +93,24 @@ time_it.CoD = cell(1, T);
 time_it.CoD_GAP = cell(1, T);
 time_it.CoD_G_GAP = cell(1, T);
 time_it.CoD_R_GAP = cell(1, T);
-time_it.CoD_Dome_GAP = cell(1, T);
 time_it.CoD_Sta = cell(1, T);
 time_it.CoD_G_Sta = cell(1, T);
-time_it.CoD_Dome_Sta = cell(1, T);
 time_it.CoD_Sta_GAP = cell(1, T);
 time_it.CoD_G_Sta_GAP = cell(1, T);
 % 筛选时间
 time_it_screen.CoD_GAP = cell(1,T);
 time_it_screen.CoD_G_GAP = cell(1,T);
 time_it_screen.CoD_R_GAP = cell(1,T);
-time_it_screen.CoD_Dome_GAP = cell(1,T);
 time_it_screen.CoD_Sta = cell(1,T);
 time_it_screen.CoD_G_Sta = cell(1,T);
-time_it_screen.CoD_Dome_Sta = cell(1,T);
 time_it_screen.CoD_Sta_GAP = cell(1,T);
 time_it_screen.CoD_G_Sta_GAP = cell(1,T);
 % 筛选数量
 num_screen.CoD_GAP= cell(1, T);
 num_screen.CoD_G_GAP= cell(1, T);
 num_screen.CoD_R_GAP= cell(1, T);
-num_screen.CoD_Dome_GAP= cell(1, T);
 num_screen.CoD_Sta= cell(1, T);
 num_screen.CoD_G_Sta= cell(1, T);
-num_screen.CoD_Dome_Sta= cell(1, T);
 num_screen.CoD_Sta_GAP= cell(1, T);
 num_screen.CoD_G_Sta_GAP= cell(1, T);
 %% =========================main loop======================================
