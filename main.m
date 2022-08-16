@@ -1,40 +1,40 @@
 clear;clear all
-% ===================== ½«ËùÓĞÓÃµ½µÄÎÄ¼ş¼Ğ¶¼Ìí¼Óµ½Â·¾¶ =====================
+% ===================== å°†æ‰€æœ‰ç”¨åˆ°çš„æ–‡ä»¶å¤¹éƒ½æ·»åŠ åˆ°è·¯å¾„ =====================
 addpath('./solvers/')
 addpath('./screening_rules/')
 addpath('./datasets/')
-%load('test_data.mat')
+load('test_data.mat')
 % load('data_20newsgroup.mat')
-load('data_AllBooks.mat')
+% load('data_AllBooks.mat')
 % load('data_Encyclopedia.mat')
-%load('data_MNIST.mat')
-% ============================= ¹Ì¶¨Ëæ»úÊı ================================
-rng_seed = 10; % 0 for no seed £¨ÉèÖÃËæ»ú±äÁ¿µÄÖÖ×Ó£¬seedÒ»µ©È·¶¨ºó£¬Ã¿´Î²úÉúµÄËæ»úÖµ¶¼ÊÇÒ»ÑùµÄÁË£©
+% load('data_MNIST.mat')
+% ============================= å›ºå®šéšæœºæ•° ================================
+rng_seed = 10; % 0 for no seed ï¼ˆè®¾ç½®éšæœºå˜é‡çš„ç§å­ï¼Œseedä¸€æ—¦ç¡®å®šåï¼Œæ¯æ¬¡äº§ç”Ÿçš„éšæœºå€¼éƒ½æ˜¯ä¸€æ ·çš„äº†ï¼‰
 if rng_seed
-    rng(rng_seed) % ¹Ì¶¨Ëæ»úÊı±ØĞëÊ¹ÓÃ¸ÃÃüÁî
+    rng(rng_seed) % å›ºå®šéšæœºæ•°å¿…é¡»ä½¿ç”¨è¯¥å‘½ä»¤
     fprintf('\n\n /!\\/!\\ RANDOM SEED ACTIVATED /!\\/!\\\n\n'); 
 end
-% ============================= Ô¤ÏÈ¼ÆËãÖµ ================================
+% ============================= é¢„å…ˆè®¡ç®—å€¼ ================================
 Ap = pinv(full(A));
 precalc.NormAp1 = sum(abs(Ap))';
 precalc.NormA = sqrt(sum(A(y~=0,:)'.^2,2));
 precalc.NormA1 = norm(A, 1);
 precalc.NormA11 = sum(abs(A));
-% ============================= ²ÎÊıÉèÖÃ ==================================
-para.tol = 1e-7; %¶ÔÅ¼¼äÏ¶<tol
-para.max_iter = 1e5; %×î´óµü´ú´ÎÊı
-para.epsilon = 1e-6; %±ÜÃâKLÉ¢¶ÈÖĞÆæÒìÖµÎª0µÄÇé¿ö
+% ============================= å‚æ•°è®¾ç½® ==================================
+para.tol = 1e-7; %å¯¹å¶é—´éš™<tol
+para.max_iter = 1e5; %æœ€å¤§è¿­ä»£æ¬¡æ•°
+para.epsilon = 1e-6; %é¿å…KLæ•£åº¦ä¸­å¥‡å¼‚å€¼ä¸º0çš„æƒ…å†µ
 para.tol_r = 1e-8;
-para.tol_gap = 0.05; %ÉèÖÃGAPÉ¸Ñ¡µ½Ò»¶¨³Ì¶È¾ÍÖÕÖ¹ÁË
-% µü´ú²ÎÊılambdaÉèÖÃ
+para.tol_gap = 0.05; %è®¾ç½®GAPç­›é€‰åˆ°ä¸€å®šç¨‹åº¦å°±ç»ˆæ­¢äº†
+% è¿­ä»£å‚æ•°lambdaè®¾ç½®
 t = 1:1:100;
 T = 100;
 deta = 4;
 inter = 10.^-((deta*t)./(T-1));
 lambda_max = max(A.'*(y-para.epsilon))/para.epsilon;
 lambdas = lambda_max.*inter;
-% ============================= ´æ´¢±äÁ¿ÉèÖÃ ===============================
-% Ô­ÎÊÌâ×îÓÅ½â
+% ============================= å­˜å‚¨å˜é‡è®¾ç½® ===============================
+% åŸé—®é¢˜æœ€ä¼˜è§£
 x_opt.CoD = cell(1, T);
 x_opt.CoD_GAP = cell(1, T);
 x_opt.CoD_G_GAP = cell(1, T);
@@ -45,7 +45,7 @@ x_opt.CoD_G_Sta = cell(1, T);
 x_opt.CoD_Dome_Sta = cell(1, T);
 x_opt.CoD_Sta_GAP = cell(1, T);
 x_opt.CoD_G_Sta_GAP = cell(1, T);
-% Ã¿´Îµü´úµÃµ½µÄ¿ÉĞĞ½â
+% æ¯æ¬¡è¿­ä»£å¾—åˆ°çš„å¯è¡Œè§£
 x_it.CoD = cell(1, T);
 x_it.CoD_GAP = cell(1, T);
 x_it.CoD_G_GAP = cell(1, T);
@@ -56,7 +56,7 @@ x_it.CoD_G_Sta = cell(1, T);
 x_it.CoD_Dome_Sta = cell(1, T);
 x_it.CoD_Sta_GAP = cell(1, T);
 x_it.CoD_G_Sta_GAP = cell(1, T);
-% Ô­ÎÊÌâÄ¿±êº¯ÊıÖµ
+% åŸé—®é¢˜ç›®æ ‡å‡½æ•°å€¼
 primal_obj.CoD = cell(1, T);
 primal_obj.CoD_GAP = cell(1, T);
 primal_obj.CoD_G_GAP = cell(1, T);
@@ -67,7 +67,7 @@ primal_obj.CoD_G_Sta = cell(1, T);
 primal_obj.CoD_Dome_Sta = cell(1, T);
 primal_obj.CoD_Sta_GAP = cell(1, T);
 primal_obj.CoD_G_Sta_GAP = cell(1, T);
-% ¶ÔÅ¼ÎÊÌâ×îÓÅ½â
+% å¯¹å¶é—®é¢˜æœ€ä¼˜è§£
 theta_opt.CoD = cell(1, T);
 theta_opt.CoD_GAP = cell(1, T);
 theta_opt.CoD_G_GAP = cell(1, T);
@@ -78,7 +78,7 @@ theta_opt.CoD_G_Sta = cell(1, T);
 theta_opt.CoD_Dome_Sta = cell(1, T);
 theta_opt.CoD_Sta_GAP = cell(1, T);
 theta_opt.CoD_G_Sta_GAP = cell(1, T);
-% ÖÕÖ¹×¼Ôò(gapµÄ±ä»¯¹æÂÉ)
+% ç»ˆæ­¢å‡†åˆ™(gapçš„å˜åŒ–è§„å¾‹)
 stop_crit_it.CoD = cell(1, T);
 stop_crit_it.CoD_GAP = cell(1, T);
 stop_crit_it.CoD_G_GAP = cell(1, T);
@@ -89,7 +89,7 @@ stop_crit_it.CoD_G_Sta = cell(1, T);
 stop_crit_it.CoD_Dome_Sta = cell(1, T);
 stop_crit_it.CoD_Sta_GAP = cell(1, T);
 stop_crit_it.CoD_G_Sta_GAP = cell(1, T);
-% µü´ú´ÎÊı
+% è¿­ä»£æ¬¡æ•°
 Iter.CoD = cell(1, T);
 Iter.CoD_GAP = cell(1, T);
 Iter.CoD_G_GAP = cell(1, T);
@@ -100,7 +100,7 @@ Iter.CoD_G_Sta = cell(1, T);
 Iter.CoD_Dome_Sta = cell(1, T);
 Iter.CoD_Sta_GAP = cell(1, T);
 Iter.CoD_G_Sta_GAP = cell(1, T);
-% Ã¿´Îµü´úµÄÊ±¼ä
+% æ¯æ¬¡è¿­ä»£çš„æ—¶é—´
 time_it.CoD = cell(1, T);
 time_it.CoD_GAP = cell(1, T);
 time_it.CoD_G_GAP = cell(1, T);
@@ -111,7 +111,7 @@ time_it.CoD_G_Sta = cell(1, T);
 time_it.CoD_Dome_Sta = cell(1, T);
 time_it.CoD_Sta_GAP = cell(1, T);
 time_it.CoD_G_Sta_GAP = cell(1, T);
-% É¸Ñ¡Ê±¼ä
+% ç­›é€‰æ—¶é—´
 time_it_screen.CoD_GAP = cell(1,T);
 time_it_screen.CoD_G_GAP = cell(1,T);
 time_it_screen.CoD_R_GAP = cell(1,T);
@@ -121,7 +121,7 @@ time_it_screen.CoD_G_Sta = cell(1,T);
 time_it_screen.CoD_Dome_Sta = cell(1,T);
 time_it_screen.CoD_Sta_GAP = cell(1,T);
 time_it_screen.CoD_G_Sta_GAP = cell(1,T);
-% É¸Ñ¡ÊıÁ¿
+% ç­›é€‰æ•°é‡
 num_screen.CoD_GAP= cell(1, T);
 num_screen.CoD_G_GAP= cell(1, T);
 num_screen.CoD_R_GAP= cell(1, T);
@@ -137,7 +137,7 @@ for i = 1 : length(lambdas)
     fprintf('\n ---- Regularization parameter %d / %d ----\n',i, length(lambdas))
     path_KL_solvers
 end
-save('result_MNIST-1-25', 'x_opt', 'x_it', 'primal_obj', 'theta_opt', 'stop_crit_it','Iter','time_it','time_it_screen','num_screen')
+save('result_test', 'x_opt', 'x_it', 'primal_obj', 'theta_opt', 'stop_crit_it','Iter','time_it','time_it_screen','num_screen')
 
 
 
