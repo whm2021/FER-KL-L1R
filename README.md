@@ -16,7 +16,8 @@ This is a **Matlab** code corresponds to the following paper:
 Disclaimers
 -----------
 
-- Datasets are not provided and need to be downloaded by the user and placed in a subfolder ./datasets (AllBooks, NIPSpaper, 20Newsgroup,  Encyclopedia, TasteProfile and MNIST). See file ./datasets/load_dataset.m and paper [3] for further instructions.
+- Real datasets are not provided and need to be downloaded by the user and placed in a subfolder ./datasets (AllBooks, NIPSpaper, 20Newsgroup,  Encyclopedia, TasteProfile and MNIST). See file ./datasets/load_dataset.m and paper [3] for further instructions.
+- Synthetic datasets can be obtained by using the script Generate_syn_dataset.m in file ./datasets/.
 - One test experiments can be performed directly.
 
 -----------------
