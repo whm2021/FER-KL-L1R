@@ -7,7 +7,7 @@
 fprintf('CoD solver KL...\n')
 [x_opt.CoD{i}, x_it.CoD{i}, primal_obj.CoD{i}, theta_opt.CoD{i}, stop_crit_it.CoD{i}, Iter.CoD{i}, time_it.CoD{i}] = CoD_KL_l1(A,y,lambda,para);
 %% CoD + Screening
-%% «Èøˆ2£∫H1∑«ª˝º´£¨Theta1=GAPª˝º´£¨Theta2=Sta∑«ª˝º´
+%% ÊÉÖÂÜµÔºöÂä®ÊÄÅ
 fprintf('\n CoD solver KL + GAPScreening...\n')
 precalc_GAP= KL_GAP_precalc(y, lambda, precalc);
 [x_opt.CoD_GAP{i}, x_it.CoD_GAP{i}, primal_obj.CoD_GAP{i}, theta_opt.CoD_GAP{i}, stop_crit_it.CoD_GAP{i}, Iter.CoD_GAP{i}, time_it.CoD_GAP{i}, time_it_screen.CoD_GAP{i}, num_screen.CoD_GAP{i}] ...
@@ -22,29 +22,17 @@ fprintf('\n CoD solver KL + R-GAPScreening...\n')
 precalc_G_GAP= KL_G_GAP_precalc(A, y, lambda, precalc);
 [x_opt.CoD_R_GAP{i}, x_it.CoD_R_GAP{i}, primal_obj.CoD_R_GAP{i}, theta_opt.CoD_R_GAP{i}, stop_crit_it.CoD_R_GAP{i}, Iter.CoD_R_GAP{i}, time_it.CoD_R_GAP{i}, time_it_screen.CoD_R_GAP{i}, num_screen.CoD_R_GAP{i}] ...
     = CoD_KL_l1_R_GAP(A, y, lambda, para, precalc_G_GAP);
-%% «Èøˆ4£∫H1ª˝º´£¨Theta1=GAPª˝º´£¨Theta2=Sta∑«ª˝º´
-% fprintf('\n CoD solver KL + Dome_GAPScreening...\n')
-% precalc_GAP= KL_GAP_precalc(y, lambda, precalc);
-% if i==1
-%     [x_opt.CoD_Dome_GAP{i}, x_it.CoD_Dome_GAP{i}, primal_obj.CoD_Dome_GAP{i}, theta_opt.CoD_Dome_GAP{i}, stop_crit_it.CoD_Dome_GAP{i}, Iter.CoD_Dome_GAP{i}, time_it.CoD_Dome_GAP{i}, time_it_screen.CoD_Dome_GAP{i}, num_screen.CoD_Dome_GAP{i}] ...
-%     = CoD_KL_l1_GAP(A, y, lambda, para, precalc_GAP);
-% else
-%     para.lambda0 = lambdas(i-1);
-%     ind_a0 = find(x_opt.CoD_Dome_GAP{i-1}~=0);
-%     a0 = A(:, ind_a0(1));
-%     [x_opt.CoD_Dome_GAP{i}, x_it.CoD_Dome_GAP{i}, primal_obj.CoD_Dome_GAP{i}, theta_opt.CoD_Dome_GAP{i}, stop_crit_it.CoD_Dome_GAP{i}, Iter.CoD_Dome_GAP{i}, time_it.CoD_Dome_GAP{i}, time_it_screen.CoD_Dome_GAP{i}, num_screen.CoD_Dome_GAP{i}] ...
-%     = CoD_KL_l1_Dome_GAP(A, y, a0, lambda, para, precalc_GAP);
-% end
-%% «Èøˆ3£∫H1∑«ª˝º´£¨Theta1=GAP∑«ª˝º´£¨Theta2=Staª˝º´
-% fprintf('\n CoD solver KL + StaticScreening...\n')
-% precalc_GAP= KL_GAP_precalc(y, lambda, precalc);
-% if i==1
-%     [x_opt.CoD_Sta{i}, x_it.CoD_Sta{i}, primal_obj.CoD_Sta{i}, theta_opt.CoD_Sta{i}, stop_crit_it.CoD_Sta{i}, Iter.CoD_Sta{i}, time_it.CoD_Sta{i}]...
-%         = CoD_KL_l1(A,y,lambda,para);
-% else
-%     [x_opt.CoD_Sta{i}, x_it.CoD_Sta{i}, primal_obj.CoD_Sta{i}, theta_opt.CoD_Sta{i}, stop_crit_it.CoD_Sta{i}, Iter.CoD_Sta{i}, time_it.CoD_Sta{i}, time_it_screen.CoD_Sta{i}, num_screen.CoD_Sta{i}] ...
-%     = CoD_KL_l1_Sta(A, y, lambda, lambdas(i-1), x_opt.CoD_Sta{1, i-1}, theta_opt.CoD_Sta{1,i-1}, para, precalc_GAP);
-% end
+
+%% ÊÉÖÂÜµÔºöÈùôÊÄÅ
+fprintf('\n CoD solver KL + StaticScreening...\n')
+precalc_GAP= KL_GAP_precalc(y, lambda, precalc);
+if i==1
+   [x_opt.CoD_Sta{i}, x_it.CoD_Sta{i}, primal_obj.CoD_Sta{i}, theta_opt.CoD_Sta{i}, stop_crit_it.CoD_Sta{i}, Iter.CoD_Sta{i}, time_it.CoD_Sta{i}]...
+       = CoD_KL_l1(A,y,lambda,para);
+else
+   [x_opt.CoD_Sta{i}, x_it.CoD_Sta{i}, primal_obj.CoD_Sta{i}, theta_opt.CoD_Sta{i}, stop_crit_it.CoD_Sta{i}, Iter.CoD_Sta{i}, time_it.CoD_Sta{i}, time_it_screen.CoD_Sta{i}, num_screen.CoD_Sta{i}] ...
+   = CoD_KL_l1_Sta(A, y, lambda, lambdas(i-1), x_opt.CoD_Sta{1, i-1}, theta_opt.CoD_Sta{1,i-1}, para, precalc_GAP);
+end
 
 fprintf('\n CoD solver KL + G-StaticScreening...\n')
 precalc_G_GAP= KL_G_GAP_precalc(A, y, lambda, precalc);
@@ -55,29 +43,17 @@ else
     [x_opt.CoD_G_Sta{i}, x_it.CoD_G_Sta{i}, primal_obj.CoD_G_Sta{i}, theta_opt.CoD_G_Sta{i}, stop_crit_it.CoD_G_Sta{i}, Iter.CoD_G_Sta{i}, time_it.CoD_G_Sta{i}, time_it_screen.CoD_G_Sta{i}, num_screen.CoD_G_Sta{i}] ...
     = CoD_KL_l1_Sta(A, y, lambda, lambdas(i-1), x_opt.CoD_G_Sta{1, i-1}, theta_opt.CoD_G_Sta{1,i-1}, para, precalc_G_GAP);
 end
-%% «Èøˆ5£∫H1ª˝º´£¨Theta1=GAP∑«ª˝º´£¨Theta2=Staª˝º´
-% fprintf('\n CoD solver KL + Dome_StaticScreening...\n')
-% precalc_GAP= KL_GAP_precalc(y, lambda, precalc);
-% if i==1
-%     [x_opt.CoD_Dome_Sta{i}, x_it.CoD_Dome_Sta{i}, primal_obj.CoD_Dome_Sta{i}, theta_opt.CoD_Dome_Sta{i}, stop_crit_it.CoD_Dome_Sta{i}, Iter.CoD_Dome_Sta{i}, time_it.CoD_Dome_Sta{i}] ...
-%         = CoD_KL_l1(A,y,lambda,para);
-% else
-%     ind_a0 = find(x_opt.CoD_Dome_Sta{i-1}~=0);
-%     a0 = A(:, ind_a0(1));
-%     [x_opt.CoD_Dome_Sta{i}, x_it.CoD_Dome_Sta{i}, primal_obj.CoD_Dome_Sta{i}, theta_opt.CoD_Dome_Sta{i}, stop_crit_it.CoD_Dome_Sta{i}, Iter.CoD_Dome_Sta{i}, time_it.CoD_Dome_Sta{i}, time_it_screen.CoD_Dome_Sta{i}, num_screen.CoD_Dome_Sta{i}] ...
-%         = CoD_KL_l1_Dome_Sta(A, y, a0, lambda, lambdas(i-1), x_opt.CoD_Dome_Sta{1, i-1}, theta_opt.CoD_Dome_Sta{1,i-1}, para, precalc_GAP);
-% end
 
-%% «Èøˆ£∫ªÏ∫œ…∏—°◊º‘Ú£®æ≤Ã¨+∂ØÃ¨£©
-% fprintf('\n CoD solver KL + Sta-GAPScreening...\n')
-% precalc_GAP= KL_GAP_precalc(y, lambda, precalc);
-% if i==1
-%     [x_opt.CoD_Sta_GAP{i}, x_it.CoD_Sta_GAP{i}, primal_obj.CoD_Sta_GAP{i}, theta_opt.CoD_Sta_GAP{i}, stop_crit_it.CoD_Sta_GAP{i}, Iter.CoD_Sta_GAP{i}, time_it.CoD_Sta_GAP{i}, time_it_screen.CoD_Sta_GAP{i}, num_screen.CoD_Sta_GAP{i}] ...
-%         = CoD_KL_l1_GAP(A, y, lambda, para, precalc_GAP);
-% else
-%     [x_opt.CoD_Sta_GAP{i}, x_it.CoD_Sta_GAP{i}, primal_obj.CoD_Sta_GAP{i}, theta_opt.CoD_Sta_GAP{i}, stop_crit_it.CoD_Sta_GAP{i}, Iter.CoD_Sta_GAP{i}, time_it.CoD_Sta_GAP{i}, time_it_screen.CoD_Sta_GAP{i}, num_screen.CoD_Sta_GAP{i}] ...
-%         = CoD_KL_l1_Sta_GAP(A, y, lambda, lambdas(i-1), x_opt.CoD_Sta_GAP{1, i-1}, theta_opt.CoD_Sta_GAP{1,i-1}, para, precalc_GAP);
-% end
+%% ÊÉÖÂÜµÔºöÊ∑∑ÂêàÁ≠õÈÄâÂáÜÂàôÔºàÈùôÊÄÅ+Âä®ÊÄÅÔºâ
+fprintf('\n CoD solver KL + Sta-GAPScreening...\n')
+precalc_GAP= KL_GAP_precalc(y, lambda, precalc);
+if i==1
+   [x_opt.CoD_Sta_GAP{i}, x_it.CoD_Sta_GAP{i}, primal_obj.CoD_Sta_GAP{i}, theta_opt.CoD_Sta_GAP{i}, stop_crit_it.CoD_Sta_GAP{i}, Iter.CoD_Sta_GAP{i}, time_it.CoD_Sta_GAP{i}, time_it_screen.CoD_Sta_GAP{i}, num_screen.CoD_Sta_GAP{i}] ...
+       = CoD_KL_l1_GAP(A, y, lambda, para, precalc_GAP);
+else
+   [x_opt.CoD_Sta_GAP{i}, x_it.CoD_Sta_GAP{i}, primal_obj.CoD_Sta_GAP{i}, theta_opt.CoD_Sta_GAP{i}, stop_crit_it.CoD_Sta_GAP{i}, Iter.CoD_Sta_GAP{i}, time_it.CoD_Sta_GAP{i}, time_it_screen.CoD_Sta_GAP{i}, num_screen.CoD_Sta_GAP{i}] ...
+       = CoD_KL_l1_Sta_GAP(A, y, lambda, lambdas(i-1), x_opt.CoD_Sta_GAP{1, i-1}, theta_opt.CoD_Sta_GAP{1,i-1}, para, precalc_GAP);
+end
 
 fprintf('\n CoD solver KL + G-Sta-GAPScreening...\n')
 precalc_G_GAP= KL_G_GAP_precalc(A, y, lambda, precalc);
@@ -88,19 +64,6 @@ else
     [x_opt.CoD_G_Sta_GAP{i}, x_it.CoD_G_Sta_GAP{i}, primal_obj.CoD_G_Sta_GAP{i}, theta_opt.CoD_G_Sta_GAP{i}, stop_crit_it.CoD_G_Sta_GAP{i}, Iter.CoD_G_Sta_GAP{i}, time_it.CoD_G_Sta_GAP{i}, time_it_screen.CoD_G_Sta_GAP{i}, num_screen.CoD_G_Sta_GAP{i}] ...
         = CoD_KL_l1_Sta_GAP(A, y, lambda, lambdas(i-1), x_opt.CoD_G_Sta_GAP{1, i-1}, theta_opt.CoD_G_Sta_GAP{1,i-1}, para, precalc_G_GAP);
 end
-
-% fprintf('\n CoD solver KL + R-Sta-GAPScreening...\n')
-% precalc_G_GAP= KL_G_GAP_precalc(A, y, lambda, precalc);
-% if i==1
-%     [x_opt.CoD_R_Sta_GAP{i}, x_it.CoD_R_Sta_GAP{i}, primal_obj.CoD_R_Sta_GAP{i}, theta_opt.CoD_R_Sta_GAP{i}, stop_crit_it.CoD_R_Sta_GAP{i}, Iter.CoD_R_Sta_GAP{i}, time_it.CoD_R_Sta_GAP{i}, time_it_screen.CoD_R_Sta_GAP{i}, num_screen.CoD_R_Sta_GAP{i}] ...
-%         = CoD_KL_l1_GAP(A, y, lambda, para, precalc_G_GAP);
-% else
-%     [x_opt.CoD_R_Sta_GAP{i}, x_it.CoD_R_Sta_GAP{i}, primal_obj.CoD_R_Sta_GAP{i}, theta_opt.CoD_R_Sta_GAP{i}, stop_crit_it.CoD_R_Sta_GAP{i}, Iter.CoD_R_Sta_GAP{i}, time_it.CoD_R_Sta_GAP{i}, time_it_screen.CoD_R_Sta_GAP{i}, num_screen.CoD_R_Sta_GAP{i}] ...
-%         = CoD_KL_l1_R_Sta_GAP(A, y, lambda, lambdas(i-1), x_opt.CoD_R_Sta_GAP{1, i-1}, theta_opt.CoD_R_Sta_GAP{1,i-1}, para, precalc_G_GAP);
-% end
-
-
-
 
 
 
