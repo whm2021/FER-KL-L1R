@@ -25,6 +25,7 @@ Files description
 
 - main.m: main script that launches all experiments. Simulation parameters can be set in this file. 
 - path_KL_solvers.m: this script is called by the main.m script.
+- Compute_final_result.m: this script is used to compute the final result used in our article.
 - ./screening_rules/: contains the functions performing the proposed screening tests (as well as the required precalculations).
 - ./solvers/: contains all tested solvers along with their corresponding version using screening:
 
