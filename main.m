@@ -121,6 +121,8 @@ for i = 1 : length(lambdas)
 end
 save('result_test', 'x_opt', 'x_it', 'primal_obj', 'theta_opt', 'stop_crit_it','Iter','time_it','time_it_screen','num_screen')
 
+%% 计算最终的结果
+Compute_final_result
 
 
 
